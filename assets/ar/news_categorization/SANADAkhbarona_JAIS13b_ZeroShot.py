@@ -13,7 +13,6 @@ def metadata():
         "author": "Arabic Language Technologies, QCRI, HBKU",
         "model": "Jais-13b-chat",
         "description": "Locally hosted Jais-13b-chat model using FastChat.",
-        "scores": {"Accuracy": "0.187"},
     }
 
 

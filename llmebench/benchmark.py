@@ -201,10 +201,10 @@ class SingleTaskBenchmark(object):
             predictions = []
 
             num_processed = 0
-            full_summary_fp = open(full_summary_path, "w")
+            full_summary_fp = open(full_summary_path, "w", encoding="utf-8")
 
             num_failed = 0
-            failed_summary_fp = open(failed_summary_path, "w")
+            failed_summary_fp = open(failed_summary_path, "w", encoding="utf-8")
 
             for sample_idx, (input_sample, few_shot_examples) in enumerate(
                 zip_longest(data, few_shots_data, fillvalue=None)
@@ -222,7 +222,7 @@ class SingleTaskBenchmark(object):
                     cache_payload["few_shot_examples"] = few_shot_examples
 
                 if cache_path.exists() and not self.ignore_cache and not dry_run:
-                    with open(cache_path, "r") as fp:
+                    with open(cache_path, "r", encoding="utf-8") as fp:
                         cache_payload = json.load(fp)
 
                 summarized_payload = {
@@ -258,7 +258,7 @@ class SingleTaskBenchmark(object):
                     )
 
                 # Save the cache payload
-                with open(cache_path, "w") as fp:
+                with open(cache_path, "w", encoding="utf-8") as fp:
                     json.dump(cache_payload, fp, ensure_ascii=False)
 
             full_summary_fp.close()
@@ -280,7 +280,7 @@ class SingleTaskBenchmark(object):
 
             task_result_path = cache_dir / "results.json"
 
-            with open(task_result_path, "w") as fp:
+            with open(task_result_path, "w", encoding="utf-8") as fp:
                 json.dump(task_results, fp, ensure_ascii=False)
 
             all_task_results[name] = task_results
@@ -497,10 +497,10 @@ def main():
     all_results_path = args.results_dir / "all_results.json"
 
     if not all_results_path.exists():
-        with open(all_results_path, "w") as fp:
+        with open(all_results_path, "w", encoding="utf-8") as fp:
             json.dump({}, fp)
 
-    with open(all_results_path, "r") as fp:
+    with open(all_results_path, "r", encoding="utf-8") as fp:
         all_results = json.load(fp)
 
     for asset in assets:
@@ -544,5 +544,5 @@ def main():
             logging.error(f"{name} failed to run")
             traceback.print_exc()
 
-    with open(all_results_path, "w") as fp:
+    with open(all_results_path, "w", encoding="utf-8") as fp:
         json.dump(all_results, fp, ensure_ascii=False)

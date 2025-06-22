@@ -33,7 +33,7 @@ class ArSASDataset(DatasetBase):
         data_path = self.resolve_path(data_path)
 
         data = []
-        with open(data_path, "r") as fp:
+        with open(data_path, "r", encoding="utf-8") as fp:
             for line_idx, line in enumerate(fp):
                 text, label = line.strip().split("\t")
                 data.append({"input": text, "label": label, "line_number": line_idx})
